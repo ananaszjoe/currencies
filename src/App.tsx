@@ -1,10 +1,27 @@
 import { useState, useEffect } from 'react';
-import './App.css'
+import Ajv from "ajv";
+import './App.css';
+
+const ajv = new Ajv();
+
+const currencyResponseSchema = {
+  type: 'object',
+  patternProperties: {
+    ".*": { "type": "string" }
+  },
+  additionalProperties: false,
+}
+
+const validate = ajv.compile(currencyResponseSchema);
+
+interface CurrencyData {
+  [key: string]: string;
+}
 
 type Currency = {
   code: string,
   name: string
-}
+};
 
 type Status = 'idle' | 'pending' | 'error';
 
@@ -17,18 +34,15 @@ function App() {
 
     fetch('https://api.frankfurter.app/currenciez')
       .then((res) => {
-        if(res.status !== 200) {
-          setStatus('error');
-          return Promise.reject(new Error('Fetch error'));
-        }
-        try {
-          return res.json();
-        } catch (error) {
-          return Promise.reject(new Error('Fetch error, invalid JSON'));
-        }
+        if(res.status !== 200) return Promise.reject(new Error('Fetch error'));
+        return res.json();
       })
       .then((data) => {
-        const structured = Object.keys(data).map(key => ({code: key, name: data[key]}))
+        if (!validate(data)) throw new Error('Invalid data structure');
+
+        const typeSafeData = data as CurrencyData;
+        const structured: Currency[] = Object.keys(typeSafeData).map(key => ({code: key, name: typeSafeData[key] as string}));
+
         setCurrencies(structured);
         setStatus('idle');
       }).catch((error) => {
