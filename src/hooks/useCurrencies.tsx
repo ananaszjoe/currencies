@@ -30,9 +30,9 @@ export default function useCurrencies() {
       if (!validate(data)) throw new Error('Invalid data structure');
 
       const typeSafeData = data as CurrencyData;
-      const structured: Currency[] = Object.keys(typeSafeData).map(key => ({code: key, name: typeSafeData[key] as string}));
+      const structuredData: Currency[] = Object.keys(typeSafeData).map(key => ({code: key, name: typeSafeData[key]}));
 
-      setCurrencies(structured);
+      setCurrencies(structuredData);
       setLoading(false);
     }).catch(() => {
       setLoading(false);

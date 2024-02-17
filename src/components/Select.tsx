@@ -22,7 +22,7 @@ function Select({options, value, onSelect, ...restProps}: SelectProps) {
       <select value={value} onChange={handleSelect} {...restProps} id={toKebabCase(restProps.name)}>
         <option value="">Select an option</option>
         {options.map(entry => (
-          <option key={entry.key} id={entry.key}>{entry.name}</option>
+          <option key={entry.key} value={entry.key} id={entry.key}>{entry.name}</option>
         ))}
       </select>
     </>
