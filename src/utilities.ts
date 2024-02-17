@@ -31,3 +31,11 @@ export function robustFetch(url: string, abortSignal?: AbortSignal, retries: num
         .then(() => robustFetch(url, abortSignal, retries - 1, timer * 2));
     });
 }
+
+export function toKebabCase(string?: string): string {
+  if(!string) return '';
+  return string.replace(/([A-Z])([A-Z])/g, '$1-$2')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')            
+    .toLowerCase();
+}

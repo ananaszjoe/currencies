@@ -1,23 +1,27 @@
+import { useState } from 'react';
 import './App.css';
 import useCurrencies from './hooks/useCurrencies';
+import Select from './components/Select';
 
 function App() {
+  const [ selectedCurrency, setSelectedCurrency ] = useState('');
   const { data: currencies, loading, error } = useCurrencies();
+  const currencyOptions = currencies?.map(entry => ({key: entry.code, name: entry.name}));
+
+  const handleCurrencySelect = (code: string) => {
+    setSelectedCurrency(code);
+  }
 
   return (
     <>
       <h1>Hello</h1>
+
       {error && !loading && <p className='error'>{error}</p>}
-      <p>Currencies:</p>
-      {!loading && currencies.length === 0 && (
-        <p>There are no currencies.</p>
-      )}
+      
+      {selectedCurrency && <p>Selected currency is {selectedCurrency}</p>}
+
       {currencies.length > 0 && (
-        <ul>
-          {currencies.map(entry => (
-            <li key={entry.code}>{entry.code} - ({entry.name})</li>
-          ))}
-        </ul>
+        <Select value={selectedCurrency} options={currencyOptions} onSelect={handleCurrencySelect} name='Select a currency' />
       )}
     </>
   )
