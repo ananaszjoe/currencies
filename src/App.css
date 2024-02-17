@@ -4,3 +4,11 @@
   padding: 2rem;
   text-align: center;
 }
+
+.error {
+  display: block;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: rgb(255, 0, 102);
+  border: 2px solid rgb(255, 0, 102);;
+}
