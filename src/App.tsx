@@ -3,6 +3,7 @@ import './App.css';
 import useCurrencies from './hooks/useCurrencies';
 import useRates from './hooks/useRates';
 import Select from './components/Select';
+import Graph from './components/Graph';
 
 function App() {
   const [ currencyFrom, setCurrencyFrom ] = useState('');
@@ -37,6 +38,10 @@ function App() {
           <Select value={currencyFrom} options={currencyOptions} onSelect={handleCurrencyFromSelect} name='Base Currency' />
           <Select value={currencyTo} options={currencyOptions} onSelect={handleCurrencyToSelect} name='Target Currency' />
         </>
+      )}
+
+      {rates && (
+        <Graph rates={rates} />
       )}
     </>
   )
