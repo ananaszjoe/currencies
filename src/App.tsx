@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.css';
+import styles from './App.module.scss';
 import useCurrencies from './hooks/useCurrencies';
 import useRates from './hooks/useRates';
 import Select from './components/Select';
@@ -26,24 +26,26 @@ function App() {
   }
 
   return (
-    <>
-      <h1>Hello</h1>
+    <div className={styles.app}>
+      <main className={styles.main}>
+        <h1>Hello</h1>
 
-      {error && !loading && <p className='error'>{error}</p>}
-      
-      {currencyFrom && currencyTo && <p>{currencyFrom} 👉 {currencyTo}</p>}
+        {error && !loading && <p className={styles.error}>{error}</p>}
+        
+        {currencyFrom && currencyTo && <p>{currencyFrom} 👉 {currencyTo}</p>}
 
-      {currencies.length > 0 && (
-        <>
-          <Select value={currencyFrom} options={currencyOptions} onSelect={handleCurrencyFromSelect} name='Base Currency' />
-          <Select value={currencyTo} options={currencyOptions} onSelect={handleCurrencyToSelect} name='Target Currency' />
-        </>
-      )}
+        {currencies.length > 0 && (
+          <div className={styles.toolbar}>
+            <Select value={currencyFrom} options={currencyOptions} onSelect={handleCurrencyFromSelect} name='Base Currency' />
+            <Select value={currencyTo} options={currencyOptions} onSelect={handleCurrencyToSelect} name='Target Currency' />
+          </div>
+        )}
 
-      {rates && (
-        <Graph rates={rates} />
-      )}
-    </>
+        {rates && (
+          <Graph rates={rates} />
+        )}
+      </main>
+    </div>
   )
 }
 

@@ -1,4 +1,5 @@
-import { toKebabCase } from "../utilities";
+import { toKebabCase } from '../utilities';
+import styles from './Select.module.scss';
 
 type Option = {
   key: string;
@@ -17,7 +18,7 @@ function Select({options, value, onSelect, ...restProps}: SelectProps) {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       {restProps.name && <label htmlFor={toKebabCase(restProps.name)}>{restProps.name}</label>}
       <select value={value} onChange={handleSelect} {...restProps} id={toKebabCase(restProps.name)}>
         <option value="">Select an option</option>
@@ -25,7 +26,7 @@ function Select({options, value, onSelect, ...restProps}: SelectProps) {
           <option key={entry.key} value={entry.key} id={entry.key}>{entry.name}</option>
         ))}
       </select>
-    </>
+    </div>
   )
 }
 

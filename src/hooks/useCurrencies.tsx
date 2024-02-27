@@ -20,13 +20,13 @@ export default function useCurrencies() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  useEffect(() => {
+  useEffect(() => {    
     const abortController = new AbortController();
     const signal = abortController.signal;
     
     setLoading(true);
      
-    robustFetch('https://api.frankfurter.app/currencies', signal).then((data) => {      
+    robustFetch('https://api.frankfurter.app/currencies', signal).then((data) => {
       if (!validate(data)) throw new Error('Invalid data structure');
 
       const typeSafeData = data as CurrencyData;

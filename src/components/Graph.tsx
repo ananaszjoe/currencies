@@ -42,11 +42,11 @@ export default function Graph({rates}: {rates: Rate[]}) {
   return (
     <svg viewBox='0 0 450 250' className={styles.graph}>
       <path className={styles.dataLine} d={dataLineDef} /> {/* data line */}
-      {weekendXSet.map(x => (
-        <path className={styles.weekend} d={`M ${x + 50},0 L ${x + 50},200`} /> /* dashed vertical */
+      {weekendXSet.map((x, i) => (
+        <path key={i} className={styles.weekend} d={`M ${x + 50},0 L ${x + 50},200`} /> /* dashed vertical */
       ))}
-      {daysXSet.map(x => (
-        <path className={styles.day} d={`M ${x + 50},0 L ${x + 50},200`} /> /* dashed vertical */
+      {daysXSet.map((x, i) => (
+        <path key={i} className={styles.day} d={`M ${x + 50},0 L ${x + 50},200`} /> /* dashed vertical */
       ))}
 
       <path className={styles.minLimit} d='M 30,150 L 450,150' /> {/* horizontal MIN limit */}
