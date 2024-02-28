@@ -8,7 +8,7 @@ type Option = {
 
 interface SelectProps extends Omit<React.HTMLProps<HTMLSelectElement>, 'onSelect'> {
   options: Option[];
-  value: string;
+  value?: string;
   onSelect: (key: string) => void;
 }
 
